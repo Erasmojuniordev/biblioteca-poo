@@ -8,12 +8,15 @@ namespace biblioteca_poo.Entities
 {
     public abstract class Usuario
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
+        public int Id { get; }
+        public string Nome { get; }
         public List<Emprestimo> EmprestimosAtivos = new List<Emprestimo>();
 
         protected Usuario(int id, string nome)
         {
+            if (id <= 0) throw new ArgumentException("Id inválido.");
+            if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentException("Nome é obrigatório.");
+
             Id = id;
             Nome = nome;
         }

@@ -11,7 +11,7 @@ namespace biblioteca_poo.Entities
     {
         public List<Livro> _livros { get; set; } = new List<Livro>();
         public List<Usuario> _usuarios { get; set; } = new List<Usuario>();
-        public List<Emprestimo> _emprestimosAtivos { get; set; } = new List<Emprestimo>();
+        public List<Emprestimo> _emprestimosAtivos { get;} = new List<Emprestimo>();
 
         public void AdicionarLivro(Livro livro)
         {
@@ -32,12 +32,6 @@ namespace biblioteca_poo.Entities
             var livro = _livros.FirstOrDefault(l => l.Id == livroId);
             if (livro == null)
                 throw new InvalidOperationException("Livro não encontrado.");
-
-            if (!usuario.PodeEmprestar())
-                throw new InvalidOperationException("Usuário atingiu o limite de empréstimos.");
-
-            if (!livro.Disponivel)
-                throw new InvalidOperationException("Livro já está emprestado.");
 
             var emprestimo = new Emprestimo(usuario, livro);
             _emprestimosAtivos.Add(emprestimo);
